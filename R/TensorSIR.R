@@ -15,6 +15,42 @@
 ##    d --- c(dL, dR)
 ######################################################################
 
+#' Tensor-based Sliced Inverse Regression (SIR)
+#'
+#' Implements a tensor-based approach to Sliced Inverse Regression (SIR) for 
+#' dimensionality reduction in supervised learning scenarios. This function 
+#' can handle tensor inputs of up to 3 dimensions, specified by the `p` parameter.
+#'
+#' @param y Numeric vector of response variables, indicating the outcome for each observation.
+#' @param x Numeric matrix of predictor variables, where each row is an observation 
+#'   and columns correspond to variables, possibly representing a flattened tensor.
+#' @param p Numeric vector indicating the dimensions of the tensor representation 
+#'   for the predictor variables. The product of `p` should equal the number of columns in `x`.
+#' @param nslice Integer specifying the number of slices for the SIR analysis.
+#' @param ndir Integer indicating the number of directions to estimate (default is 1).
+#' @param maxiter Maximum number of iterations for the algorithm (default is 200).
+#' @param tol Tolerance level for convergence in the optimization algorithm (default is 1e-8).
+#' @param eps A small numerical value to stabilize computations (default is 1e-8).
+#'
+#' @return A list containing the following components:
+#' \itemize{
+#'   \item p: The dimensions of the tensor as specified by the input.
+#'   \item ndir: The number of directions estimated.
+#'   \item info: Information from the initial SIR analysis, including slice information.
+#'   \item ans: Results from the tensor-based SIR analysis, varying based on the dimensionality of `p`.
+#' }
+#'
+#' @examples
+#' set.seed(123)
+#' y <- rnorm(100)
+#' x <- matrix(rnorm(300), ncol = 3)
+#' p <- c(1, 3)
+#' nslice <- 10
+#' 
+#' result <- tensorSIR(y, x, p, nslice)
+#' print(result)
+#'
+#' @export
 tensorSIR = function(y, x, p, nslice, ndir = 1, 
      maxiter = 200, tol = 1e-8, eps = 1e-8)
 {
@@ -38,6 +74,21 @@ tensorSIR = function(y, x, p, nslice, ndir = 1,
 ## tensorSIR for vector-valued predictors
 ######################################################################
 
+#' Tensor-based SIR for Vector-valued Predictors
+#'
+#' Performs tensor-based Sliced Inverse Regression (SIR) for cases where predictors
+#' are vector-valued, utilizing a single dimension (`p` = 1).
+#'
+#' @param prob A list containing problem-specific parameters, including the
+#'   moment matrices `Mmat` and `Smat`, dimension `p`, and the number of directions `ndir`.
+#'
+#' @return A list containing the estimated directions (`direction`) and their 
+#'   corresponding eigenvalues (`Qvalue`).
+#'
+#' @examples
+#' # For usage, see the example for `foldedSIR`.
+#'
+#' @export
 tensor1SIR = function(prob)
 {
   if(length(prob$p) != 1) stop("length(p) != 1.\n");
@@ -53,6 +104,20 @@ tensor1SIR = function(prob)
 ## tensorSIR for matrix-valued predictors: naive algorithm
 ######################################################################
 
+#' Tensor-based SIR for Matrix-valued Predictors Using Naive Algorithm
+#'
+#' Extends tensor-based Sliced Inverse Regression (SIR) to handle matrix-valued predictors
+#' by performing the analysis in a tensor framework, specifically for two dimensions (`p` = 2).
+#'
+#' @param prob A list with problem-specific parameters and moment matrices.
+#'
+#' @return A list containing the tensor-based directions (`direction`), their Q-values (`Qvalue`),
+#'   and matrices `a` and `b` representing the tensor decomposition.
+#'
+#' @examples
+#' # For usage, see the example for `foldedSIR`.
+#'
+#' @export
 tensor2SIR = function(prob)
 {
   if(length(prob$p) != 2) stop("length(p) != 2.\n");
@@ -86,6 +151,17 @@ tensor2SIR = function(prob)
 ## extract one pair of directions 
 ######################################################################
 
+#' Extract One Pair of Directions for Tensor2SIR
+#'
+#' A helper function for `tensor2SIR` to extract a single pair of directions in the 
+#' tensor-based SIR analysis for matrix-valued predictors.
+#'
+#' @param prob A list containing the modified problem-specific parameters for the current iteration.
+#'
+#' @return A list with the newly estimated parameters, including the number of iterations (`iter`)
+#'   and convergence status (`conv`).
+#'
+#' @noRd
 tensor2SIR.pair.1st = function(prob)
 {
   newest = list(pL = prob$pL, pR = prob$pR, 
@@ -123,6 +199,19 @@ tensor2SIR.pair.1st = function(prob)
 ## one step. update a, b, and Q
 ######################################################################
 
+#' One Step Update for Tensor2SIR Pair Extraction
+#'
+#' Performs a single step update of parameters `a` and `b` in the tensor2SIR algorithm,
+#' aiming to refine the direction estimates for matrix-valued predictors.
+#'
+#' @param Mmat Moment matrix M associated with the current slice.
+#' @param Smat Covariance matrix S of the predictors.
+#' @param est A list containing the current estimates of `a` and `b`.
+#' @param tol Tolerance for numerical stability checks (default = 1e-7).
+#'
+#' @return A list with updated estimates of `a`, `b`, their outer product (`boa`), and `Qfun`.
+#'
+#' @noRd
 tensor2SIR.onestep = function(Mmat, Smat, est, tol = 1e-7)
 {
   ans = est;

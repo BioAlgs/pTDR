@@ -15,6 +15,38 @@
 ##    d --- c(dL, dR)
 ######################################################################
 
+
+#' Folded Sliced Inverse Regression (SIR)
+#'
+#' Implements a folded version of Sliced Inverse Regression (SIR) for dimensionality reduction,
+#' designed for bidimensional tensorial data. This function requires the data matrix `x` to
+#' have dimensions that can be folded into a tensor of shape specified by `p`.
+#'
+#' @param y Numeric vector of response variables, with one value per observation.
+#' @param x Numeric matrix of predictor variables, with each row representing an observation.
+#' @param p Numeric vector of length 2 specifying the dimensions into which `x` can be folded.
+#' @param nslice Integer specifying the number of slices to divide `y` into for SIR analysis.
+#' @param d Numeric vector of length 2 specifying the dimensions for dimensionality reduction.
+#' @param maxiter Maximum number of iterations for the algorithm (default = 200).
+#' @param tol Tolerance level for algorithm convergence (default = 1e-8).
+#'
+#' @return A list containing:
+#' \itemize{
+#'   \item Various components related to the fitted model, including the number of iterations (`iter`) and convergence status (`conv`).
+#' }
+#'
+#' @examples
+#' set.seed(123)
+#' y <- rnorm(100)
+#' x <- matrix(rnorm(400), ncol = 4)
+#' p <- c(2, 2)
+#' nslice <- 10
+#' d <- c(1, 1)
+#'
+#' result <- foldedSIR(y, x, p, nslice, d)
+#' print(result)
+#'
+#' @export
 foldedSIR = function(y, x, p, nslice, d, maxiter = 200, tol = 1e-8)
 {
   if(length(p) != 2) stop("length(p) != 2.\n");
@@ -52,7 +84,17 @@ foldedSIR = function(y, x, p, nslice, d, maxiter = 200, tol = 1e-8)
   c(myprob, newest, list(iter = iter, conv = conv));
 }
 
-
+#' One Step of Folded SIR Iteration
+#'
+#' A helper function for `foldedSIR` that performs a single iteration step of the
+#' folded SIR algorithm, updating the estimates of parameters.
+#'
+#' @param prob A list containing problem-specific parameters and data derived from the initial `foldedSIR` setup.
+#' @param est A list containing the current estimates of the parameters.
+#'
+#' @return A list with updated parameter estimates.
+#'
+#' @noRd
 foldedSIR.onestep = function(prob, est)
 {
   newest = est;

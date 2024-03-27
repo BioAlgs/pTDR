@@ -16,7 +16,23 @@
 ## the algorithm proposed in Li, Kim, and Altman (2010)
 ## only works when d = c(1, 1)
 ######################################################################
-
+#' Old Implementation of Folded Sliced Inverse Regression
+#'
+#' This function is an older version of the `foldedSIR` method for dimensionality reduction,
+#' supporting only specific dimensions (`d = c(1, 1)`) for bidimensional tensorial data.
+#'
+#' @param y Numeric vector of response variables.
+#' @param x Numeric matrix of predictors.
+#' @param p Numeric vector specifying the tensor dimensions.
+#' @param nslice Number of slices for SIR.
+#' @param d Dimensionality reduction targets.
+#' @param maxiter Maximum iterations for convergence.
+#' @param tol Tolerance for convergence.
+#'
+#' @return A list containing model fit information, including parameters and convergence details.
+#' @examples
+#' # Example usage would be similar to `foldedSIR`, but with `d` restricted to `c(1, 1)`.
+#' @export
 foldedSIR.old = function(y, x, p, nslice, d, maxiter = 200, tol = 1e-8)
 {
   if(length(p) != 2) stop("length(p) != 2.\n");
@@ -41,7 +57,16 @@ foldedSIR.old = function(y, x, p, nslice, d, maxiter = 200, tol = 1e-8)
   c(info, list(p = prob$p, d = prob$d), ans);
 }
 
-
+#' Folded SIR Specifically for `d = c(1, 1)`
+#'
+#' Tailored implementation of `foldedSIR` method when dimensionality reduction targets `d` are specifically `(1, 1)`.
+#'
+#' @param prob A list containing problem setup and parameters.
+#'
+#' @return A list including direction vectors (`direction`), their quality values (`Qvalue`), and additional model details.
+#' @examples
+#' # Intended to be called within `foldedSIR.old` with proper setup.
+#' @noRd
 foldedSIR211 = function(prob)
 {
   if(prob$type != "solve_foldedSIR211") stop("incorrect type.\n");
@@ -81,7 +106,14 @@ foldedSIR211 = function(prob)
   c(newest, list(iter = iter, conv = conv, direction = newest$boa));
 }
 
-
+#' Single Iteration Update for `foldedSIR211`
+#'
+#' Performs a single iteration update in the `foldedSIR211` optimization process.
+#'
+#' @param oldest Current state of model parameters.
+#'
+#' @return Updated model parameters after one iteration.
+#' @noRd
 foldedSIR211.onestep = function(oldest)
 {
   est = oldest;
@@ -129,6 +161,18 @@ foldedSIR211.onestep = function(oldest)
 ## sqrt root of a square matrix, A^{1/2}
 ######################################################################
 
+#' Square Root of a Matrix
+#'
+#' Computes the square root of a positive semidefinite matrix `A`.
+#'
+#' @param A Numeric matrix, expected to be positive semidefinite.
+#' @param tol Tolerance for treating small eigenvalues as zero.
+#'
+#' @return The square root of matrix `A`.
+#' @examples
+#' A <- matrix(c(4, 1, 1, 3), nrow = 2)
+#' sqrtA <- sqrtmat(A)
+#' @noRd
 sqrtmat = function(A, tol = 1e-8)
 {
   Aeig = eigen(A, symmetric = TRUE);
@@ -139,7 +183,18 @@ sqrtmat = function(A, tol = 1e-8)
 ######################################################################
 ## inverse of the sqrt root of a square matrix, A^{-1/2}
 ######################################################################
-
+#' Inverse Square Root of a Matrix
+#'
+#' Calculates the inverse square root of a positive semidefinite matrix `A`.
+#'
+#' @param A Numeric matrix, expected to be positive semidefinite.
+#' @param tol Tolerance for treating small eigenvalues as zero.
+#'
+#' @return The inverse square root of matrix `A`.
+#' @examples
+#' A <- matrix(c(4, 1, 1, 3), nrow = 2)
+#' invSqrtA <- sqrtmatinv(A)
+#' @noRd
 sqrtmatinv = function(A, tol = 1e-8)
 {
   Aeig = eigen(A, symmetric = TRUE);

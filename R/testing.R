@@ -4,13 +4,33 @@
 ## Peng Zeng
 ######################################################################
 
-dyn.load(paste("./inst/libs/testing-cfuns", .Platform$dynlib.ext, sep = ""));
+# dyn.load(paste("./inst/libs/testing-cfuns", .Platform$dynlib.ext, sep = ""));
 
 ######################################################################
 ## H0: Mmat = 0
 ## test statistic: tr(Mmat) 
 ######################################################################
 
+#' Test Hypothesis for Independence in SIR Model
+#'
+#' Performs a hypothesis test for independence between response `y` and predictors `x`
+#' within the SIR model framework, using the number of slices specified by `nslice`.
+#'
+#' @param y Numeric vector of response variables.
+#' @param x Numeric matrix of predictor variables.
+#' @param nslice Integer specifying the number of slices for analysis.
+#'
+#' @return A list containing various statistics including the test statistic (`stat`), 
+#'   p-value (`p.value`), eigenvalues (`z`), degrees of freedom (`df`), and scale factor (`scale`).
+#'
+#' @examples
+#' y <- rnorm(100)
+#' x <- matrix(rnorm(200), ncol = 2)
+#' nslice <- 10
+#' result <- testH0(y, x, nslice)
+#' print(result)
+#'
+#' @export
 testH0 = function(y, x, nslice)
 {
   n = length(y);
@@ -42,6 +62,19 @@ testH0 = function(y, x, nslice)
 ## evaluate p-value for weighted chi-squared distribution
 ######################################################################
 
+#' Evaluate P-Value for Weighted Chi-Squared Distribution
+#'
+#' Calculates the tail probability of a weighted chi-squared distribution,
+#' given a test statistic, eigenvalues vector `zvec`, and the number of Monte Carlo simulations.
+#'
+#' @param stat Numeric, the test statistic for which to evaluate the tail probability.
+#' @param zvec Numeric vector of eigenvalues used in the weighting.
+#' @param n.mc Integer, the number of Monte Carlo simulations to perform (default = 10000).
+#' @param eps Numeric, a small tolerance value to filter `zvec` elements (default = 1e-7).
+#'
+#' @return Numeric, the estimated tail probability.
+#'
+#' @noRd
 wchisq.tail = function(stat, zvec, n.mc = 10000, eps = 1e-7)
 {
   index = (zvec > eps);
@@ -60,6 +93,17 @@ wchisq.tail = function(stat, zvec, n.mc = 10000, eps = 1e-7)
 ## calculate matrix Mmat, psi(xi, xj)
 ######################################################################
 
+#' Calculate Matrix Psi for SIR Model
+#'
+#' Computes the psi matrix used in SIR model analysis, based on predictors `x`
+#' and slice information.
+#'
+#' @param x Numeric matrix of predictor variables.
+#' @param sliceinfo List containing slice sizes and indicators.
+#'
+#' @return Numeric matrix, the computed psi matrix.
+#'
+#' @noRd
 calpsimat = function(x, sliceinfo)
 {
   n = NROW(x);
@@ -87,7 +131,17 @@ calpsimat = function(x, sliceinfo)
   psimat;
 }
 
-
+#' Interface to C Function for Calculating Psi Matrix
+#'
+#' Provides an interface to a C function for calculating the psi matrix, optimizing 
+#' the computation compared to pure R implementation.
+#'
+#' @param x Numeric matrix of predictor variables.
+#' @param sliceinfo List containing slice sizes and indicators.
+#'
+#' @return Numeric matrix, the psi matrix calculated by the C function.
+#'
+#' @noRd
 C.calpsimat = function(x, sliceinfo)
 {
   n = NROW(x); p = NCOL(x);

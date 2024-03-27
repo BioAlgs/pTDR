@@ -2,8 +2,22 @@
 ## local polynomial smoothing
 ######################################################################
 
-dyn.load(paste("./inst/libs/locpoly", .Platform$dynlib.ext, sep = ""));
+# dyn.load(paste("./inst/libs/locpoly", .Platform$dynlib.ext, sep = ""));
 
+#' Local Polynomial Regression Using C Interface
+#'
+#' Performs local polynomial regression via a C function interface. It computes the
+#' estimated values of a dependent variable `yin` based on the predictors `xin`, 
+#' for new observations `xout`, using bandwidth `h`.
+#'
+#' @param yin Numeric vector of dependent variable values.
+#' @param xin Numeric matrix of predictor variables.
+#' @param h Numeric, the bandwidth for the local polynomial regression.
+#' @param xout Numeric matrix specifying the points at which predictions are to be made.
+#'
+#' @return Numeric vector of predicted values corresponding to `xout`.
+#'
+#' @noRd
 Clocpoly = function(yin, xin, h, xout)
 {
   n = length(yin); p = NCOL(xin); m = NROW(xout);
@@ -15,7 +29,20 @@ Clocpoly = function(yin, xin, h, xout)
       as.double(xout), yhat = double(m))$yhat;
 }
 
-
+#' Local Polynomial Regression in R
+#'
+#' An R implementation of local polynomial regression. It estimates values of the
+#' dependent variable `yin` based on predictors `xin` for new observations `xout`,
+#' using a specified bandwidth `h`.
+#'
+#' @param yin Numeric vector of dependent variable values.
+#' @param xin Numeric matrix of predictor variables.
+#' @param h Numeric, the bandwidth for the local polynomial regression.
+#' @param xout Numeric matrix specifying the points at which predictions are to be made.
+#'
+#' @return Numeric vector of predicted values corresponding to `xout`.
+#'
+#' @noRd
 Rlocpoly = function(yin, xin, h, xout)
 {
   n = length(yin); p = NCOL(xin); m = NROW(xout);
@@ -40,6 +67,17 @@ Rlocpoly = function(yin, xin, h, xout)
 ## rule-of-thumb bandwidth
 ######################################################################
 
+#' Rule-of-Thumb Bandwidth Selection
+#'
+#' Calculates a rule-of-thumb bandwidth for local polynomial regression based on
+#' the input matrix `x` and an optional scaling factor `sc`.
+#'
+#' @param x Numeric matrix of predictor variables.
+#' @param sc Numeric, an optional scaling factor for the bandwidth (default is 1).
+#'
+#' @return Numeric, the calculated bandwidth.
+#'
+#' @noRd
 choose.h = function(x, sc = 1)
 {
   n = NROW(x); p = NCOL(x);
