@@ -20,7 +20,7 @@ rm(list = ls())
 
 # Define matrices
 a1 = c(1, 1, 0, 0, 0)
-a2 = c(0, 0, 1, 1)
+a2 = c(0, 0, 0, 1, 1)
 amat = cbind(a1, a2)
 b1 = c(1, 1, 1, rep(0, 6))
 b2 = c(rep(0, 6), 1, 1, 1)
