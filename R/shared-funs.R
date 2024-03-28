@@ -1,18 +1,10 @@
 ######################################################################
 ## functions shared by tensorSIR and foldedSIR
 ######################################################################
-# dyn.load(paste("inst/libs/x64/d_eig", .Platform$dynlib.ext, sep = ""), package = "TensorSIR");
-dyn.load(system.file("libs/x64/d_eig.dll", package="TensorSIR"));
-# require('dr');
-# source('./R/locpoly.R')
+#' @useDynLib d_eig
 #' @importFrom dr dr.slices
 #' @export
 dr::dr.slices
-# .Ceig <- function(n, x, number, tol) {
-#   .C("d_eig", as.integer(n), as.double(x), as.integer(number),
-#      as.double(tol), d = integer(1),
-#      values = double(number), vectors = double(n*number));
-# }
 
 ######################################################################
 ## calculate cov(x), slice y, calculate var[E(x|y)] 
@@ -71,7 +63,7 @@ SIR.slice = function(y, x, nslice)
 #' @param tol Numeric, tolerance for determining positive values.
 #'
 #' @return A list with eigenvalues (`values`) and eigenvectors (`vectors`).
-#' @export
+#' @noRd
 Ceig = function(x, number = 1, tol = .Machine$double.eps)
 {
   n = NROW(x);
@@ -84,15 +76,6 @@ Ceig = function(x, number = 1, tol = .Machine$double.eps)
   list(values  = ans$values[ans$d : 1],
        vectors = matrix(ans$vectors, nrow = n)[, ans$d : 1])
 }
-# Ceig = function(x, number = 1, tol = .Machine$double.eps)
-# {
-#   n = NROW(x);
-#   if(NCOL(x) != n) stop("x should be a square matrix.\n");
-# 
-#   ans = .Ceig(n, x, number, tol)
-#   list(values  = ans$values[ans$d : 1],
-#        vectors = matrix(ans$vectors, nrow = n)[, ans$d : 1])
-# }
 
 ######################################################################
 ## solve max_x (x^TAx) / (x^TBx)

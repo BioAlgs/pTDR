@@ -7,9 +7,6 @@ dr::dr.slices
 ## local polynomial smoothing
 ######################################################################
 
-dyn.load(paste("inst/libs/x64/locpoly", .Platform$dynlib.ext, sep = ""));
-
-
 #' Local Polynomial Regression Using C Interface
 #'
 #' Performs local polynomial regression via a C function interface. It computes the

@@ -7,7 +7,6 @@
 #' @importFrom dr dr.slices
 #' @export
 dr::dr.slices
-# dyn.load(paste("./inst/libs/x64/testing-cfuns", .Platform$dynlib.ext, sep = ""));
 
 ######################################################################
 ## H0: Mmat = 0
