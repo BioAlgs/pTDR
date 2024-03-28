@@ -3,9 +3,8 @@
 Welcome to the `TensorSIR` R package, implementing the method proposed in “Parsimonious Tensor Dimension Reduction” by Xing, et al. (2023). This package provides tools for tensor dimensionality reduction and sufficient dimension reduction (SIR) in high-dimensional data analysis.
 
 ## Installation
-
+The package is best suited for use on Windows, as it contains binary files that were compiled for Windows.
 Clone the package from GitHub:
-
 ```{bash}
 git clone git@github.com:BioAlgs/TensorSIR.git
 ```
