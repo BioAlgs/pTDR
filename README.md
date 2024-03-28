@@ -1,4 +1,4 @@
-# TensorSIR Package
+# TensorSIR R Package
 
 Welcome to the `TensorSIR` R package, implementing the method proposed in “Parsimonious Tensor Dimension Reduction” by Xing, et al. (2023). This package provides tools for tensor dimensionality reduction and sufficient dimension reduction (SIR) in high-dimensional data analysis.
 
