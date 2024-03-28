@@ -8,7 +8,7 @@ Clone the package from GitHub:
 ```{bash}
 git clone git@github.com:BioAlgs/TensorSIR.git
 ```
-Then, use devtools to load the package into your R session:
+Then, in R or Rstudio, set the working directory as the downloaded folder (".../TensorSIR") and use devtools to load the package into your R session:
 ```{r}
 devtools::load_all(".")
 ```
