@@ -3,7 +3,7 @@
 ######################################################################
 
 require('dr');
-# dyn.load(paste("./inst/libs/d_eig", .Platform$dynlib.ext, sep = ""));
+dyn.load(paste("./inst/libs/d_eig", .Platform$dynlib.ext, sep = ""));
 # source('./R/locpoly.R')
 
 ######################################################################

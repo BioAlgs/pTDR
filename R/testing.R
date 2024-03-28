@@ -4,7 +4,7 @@
 ## Peng Zeng
 ######################################################################
 
-# dyn.load(paste("./inst/libs/testing-cfuns", .Platform$dynlib.ext, sep = ""));
+dyn.load(paste("./inst/libs/testing-cfuns", .Platform$dynlib.ext, sep = ""));
 
 ######################################################################
 ## H0: Mmat = 0

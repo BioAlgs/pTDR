@@ -2,7 +2,7 @@
 ## local polynomial smoothing
 ######################################################################
 
-# dyn.load(paste("./inst/libs/locpoly", .Platform$dynlib.ext, sep = ""));
+dyn.load(paste("./inst/libs/locpoly", .Platform$dynlib.ext, sep = ""));
 
 #' Local Polynomial Regression Using C Interface
 #'
