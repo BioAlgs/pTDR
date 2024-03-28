@@ -3,8 +3,11 @@
 ## 02-06-2015
 ## Peng Zeng
 ######################################################################
-
-dyn.load(paste("./inst/libs/testing-cfuns", .Platform$dynlib.ext, sep = ""));
+#' @useDynLib testing-cfuns 
+#' @importFrom dr dr.slices
+#' @export
+dr::dr.slices
+# dyn.load(paste("./inst/libs/x64/testing-cfuns", .Platform$dynlib.ext, sep = ""));
 
 ######################################################################
 ## H0: Mmat = 0
@@ -74,7 +77,7 @@ testH0 = function(y, x, nslice)
 #'
 #' @return Numeric, the estimated tail probability.
 #'
-#' @noRd
+#' @export
 wchisq.tail = function(stat, zvec, n.mc = 10000, eps = 1e-7)
 {
   index = (zvec > eps);
@@ -151,7 +154,8 @@ C.calpsimat = function(x, sliceinfo)
 
   ans = .C("calpsimat", as.integer(n), as.integer(p), as.double(x), 
            as.integer(sliceinfo$slice.indicator - 1), as.double(prop), 
-           psi = double(n*n));
+           psi = double(n*n),
+           PACKAGE = "testing-cfuns");
 
   matrix(ans$psi, nrow = n, ncol = n);
 }

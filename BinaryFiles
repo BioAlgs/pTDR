@@ -1,0 +1,6 @@
+inst/libs/x64/d_eig.dll
+inst/libs/x64/locpoly.dll
+inst/libs/x64/testing-cfuns.dll
+inst/libs/i386/d_eig.dll
+inst/libs/i386/locpoly.dll
+inst/libs/i386/testing-cfuns.dll

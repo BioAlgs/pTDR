@@ -1,10 +1,18 @@
 ######################################################################
 ## functions shared by tensorSIR and foldedSIR
 ######################################################################
-
-require('dr');
-dyn.load(paste("./inst/libs/d_eig", .Platform$dynlib.ext, sep = ""));
+# dyn.load(paste("inst/libs/x64/d_eig", .Platform$dynlib.ext, sep = ""), package = "TensorSIR");
+dyn.load(system.file("libs/x64/d_eig.dll", package="TensorSIR"));
+# require('dr');
 # source('./R/locpoly.R')
+#' @importFrom dr dr.slices
+#' @export
+dr::dr.slices
+# .Ceig <- function(n, x, number, tol) {
+#   .C("d_eig", as.integer(n), as.double(x), as.integer(number),
+#      as.double(tol), d = integer(1),
+#      values = double(number), vectors = double(n*number));
+# }
 
 ######################################################################
 ## calculate cov(x), slice y, calculate var[E(x|y)] 
@@ -63,19 +71,28 @@ SIR.slice = function(y, x, nslice)
 #' @param tol Numeric, tolerance for determining positive values.
 #'
 #' @return A list with eigenvalues (`values`) and eigenvectors (`vectors`).
-#'
-#' @noRd
+#' @export
 Ceig = function(x, number = 1, tol = .Machine$double.eps)
 {
-  n = NROW(x); 
+  n = NROW(x);
   if(NCOL(x) != n) stop("x should be a square matrix.\n");
 
   ans = .C("d_eig", as.integer(n), as.double(x), as.integer(number),
-     as.double(tol), d = integer(1), 
-     values = double(number), vectors = double(n*number));
-  list(values  = ans$values[ans$d : 1],  
+     as.double(tol), d = integer(1),
+     values = double(number), vectors = double(n*number),
+     PACKAGE = "d_eig");
+  list(values  = ans$values[ans$d : 1],
        vectors = matrix(ans$vectors, nrow = n)[, ans$d : 1])
 }
+# Ceig = function(x, number = 1, tol = .Machine$double.eps)
+# {
+#   n = NROW(x);
+#   if(NCOL(x) != n) stop("x should be a square matrix.\n");
+# 
+#   ans = .Ceig(n, x, number, tol)
+#   list(values  = ans$values[ans$d : 1],
+#        vectors = matrix(ans$vectors, nrow = n)[, ans$d : 1])
+# }
 
 ######################################################################
 ## solve max_x (x^TAx) / (x^TBx)
@@ -292,7 +309,7 @@ projmat = function(x, tol = 1e-7)
 #'
 #' @return Distance between the column spaces of matA and matB.
 #'
-#' @noRd
+#' @export
 dist.colspace = function(matA, matB)
 {
   if(any(is.na(matA)) || any(is.na(matB)))

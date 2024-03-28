@@ -1,8 +1,14 @@
+#' @useDynLib locpoly
+#' @importFrom dr dr.slices
+#' @export
+dr::dr.slices
+
 ######################################################################
 ## local polynomial smoothing
 ######################################################################
 
-dyn.load(paste("./inst/libs/locpoly", .Platform$dynlib.ext, sep = ""));
+dyn.load(paste("inst/libs/x64/locpoly", .Platform$dynlib.ext, sep = ""));
+
 
 #' Local Polynomial Regression Using C Interface
 #'
@@ -26,7 +32,8 @@ Clocpoly = function(yin, xin, h, xout)
 
   .C('locpoly', as.integer(n), as.integer(p), as.integer(m), 
       as.double(yin), as.double(xin), as.double(h),
-      as.double(xout), yhat = double(m))$yhat;
+      as.double(xout), yhat = double(m),
+     PACKAGE = "locpoly")$yhat;
 }
 
 #' Local Polynomial Regression in R
