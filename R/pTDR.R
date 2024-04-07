@@ -71,7 +71,7 @@ pTDR = function(y, x, p, nslice, ndir = 1,
 }
 
 ######################################################################
-## tensorSIR for vector-valued predictors
+## pTDR for vector-valued predictors
 ######################################################################
 
 #' Tensor-based SIR for Vector-valued Predictors
@@ -101,7 +101,7 @@ tensor1SIR = function(prob)
 }
 
 ######################################################################
-## tensorSIR for matrix-valued predictors: naive algorithm
+## pTDR for matrix-valued predictors: naive algorithm
 ######################################################################
 
 #' Tensor-based SIR for Matrix-valued Predictors Using Naive Algorithm

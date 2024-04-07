@@ -1,12 +1,13 @@
 #' Tensor Reduction and Estimation Package
-#' @title Tensor Reduction and Estimation for TensorSIR
+#' @title Tensor Reduction and Estimation for pTDR
 #' @description
 #' This package provides tools for performing tensor reduction and estimation, 
 #' leveraging both R and C  for computational efficiency. Tensor operations can 
 #' be highly computational intensive, especially with large datasets commonly 
 #' found in machine learning, data mining, and high-dimensional data analysis.
 #' 
-#' @name TensorSIR
+#' @name pTDR-package
+#' @aliases pTDR
 #'
 #' @examples
 #' ######################################################################
