@@ -11,9 +11,9 @@ Welcome to the `pTDR` R package, implementing the method proposed in “Parsimon
 The package is best suited for use on Windows, as it contains binary files that were compiled for Windows.
 Clone the package from GitHub:
 ```{bash}
-git clone git@github.com:BioAlgs/pTDR.git
+git clone https://github.com/BioAlgs/pTDR.git
 ```
-Then, in R or Rstudio, set the working directory as the downloaded folder ("./pTDR") and use devtools to load the package into your R session:
+Then, in start R or Rstudio, set the working directory as the downloaded folder ("./pTDR") and use devtools to load the package into your R session:
 ```{r}
 devtools::load_all(".")
 ```
