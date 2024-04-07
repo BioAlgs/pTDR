@@ -1,6 +1,6 @@
 # pTDR R Package
 
-Welcome to the `TensorSIR` R package, implementing the method proposed in “Parsimonious Tensor Dimension Reduction” by Xing, et al. (2023). This package provides tools for tensor dimensionality reduction and sufficient dimension reduction (SIR) in high-dimensional data analysis.
+Welcome to the `pTDR` R package, implementing the method proposed in “Parsimonious Tensor Dimension Reduction” by Xing, et al. (2023). This package provides tools for tensor dimensionality reduction and sufficient dimension reduction (SIR) in high-dimensional data analysis.
 
 ## Requirements
 
@@ -11,14 +11,14 @@ Welcome to the `TensorSIR` R package, implementing the method proposed in “Par
 The package is best suited for use on Windows, as it contains binary files that were compiled for Windows.
 Clone the package from GitHub:
 ```{bash}
-git clone git@github.com:BioAlgs/TensorSIR.git
+git clone git@github.com:BioAlgs/pTDR.git
 ```
-Then, in R or Rstudio, set the working directory as the downloaded folder (".../TensorSIR") and use devtools to load the package into your R session:
+Then, in R or Rstudio, set the working directory as the downloaded folder ("./pTDR") and use devtools to load the package into your R session:
 ```{r}
 devtools::load_all(".")
 ```
 ## Usage
-Below are some examples demonstrating how to use the `TensorSIR` package. These examples cover basic usage, comparing new and old methodologies, testing hypotheses, and performing cross-validation.
+Below are some examples demonstrating how to use the `pTDR` package. These examples cover basic usage, comparing new and old methodologies, testing hypotheses, and performing cross-validation.
 ```{r}
 # Define matrices
 a1 = c(1, 1, 0, 0, 0)
@@ -33,7 +33,7 @@ x = matrix(rnorm(400 * 45), ncol = 45)
 boa = kronecker(bmat, amat)
 y = (x %*% boa[, 1]) / (2 + (3 + x %*% boa[, 4])^2) + rnorm(400, sd = 0.5)
 
-# Apply TensorSIR
+# Apply pTDR
 p = c(5, 9)
 d = c(1, 1)
 nslice = 10
