@@ -38,7 +38,7 @@ p = c(5, 9)
 d = c(1, 1)
 nslice = 10
 ans1 = foldedSIR(y, x, p, nslice, d)
-ans2 = tensorSIR(y, x, p, nslice, 4)
+ans2 = pTDR(y, x, p, nslice, 4)
 
 # Compare direction vectors
 dist.colspace(boa, ans1$boa)
