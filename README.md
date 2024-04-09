@@ -20,6 +20,39 @@ devtools::load_all(".")
 ## Help File
 
 You can access the help document of main functions such as `pTDR`, `testH0` by using `? pTDR` and `? testH0`.
+The help file of `pTDR` is here:
+
+**Usage**
+```
+pTDR(y, x, p, nslice, ndir = 1, maxiter = 200, tol = 1e-08, eps = 1e-08)
+```
+**Arguments**
+`y`	Numeric vector of response variables, indicating the outcome for each observation.
+
+`x`	Numeric matrix of predictor variables, where each row is an observation and columns correspond to variables, possibly representing a flattened tensor.
+
+`p`	Numeric vector indicating the dimensions of the tensor representation for the predictor variables. The product of p should equal the number of columns in x.
+
+`nslice` Integer specifying the number of slices for the SIR analysis.
+
+`ndir` Integer indicating the number of directions to estimate (default is 1).
+
+`maxiter` Maximum number of iterations for the algorithm (default is 200).
+
+`tol`	Tolerance level for convergence in the optimization algorithm (default is 1e-8).
+
+`eps`	A small numerical value to stabilize computations (default is 1e-8).
+
+**Value**
+A list containing the following components:
+
+- `p`: The dimensions of the tensor as specified by the input.
+
+- `ndir`: The number of directions estimated.
+
+- `info`: Information from the initial SIR analysis, including slice information.
+
+- `ans`: Results from the tensor-based SIR analysis, varying based on the dimensionality of p.
 
 ## Usage
 
