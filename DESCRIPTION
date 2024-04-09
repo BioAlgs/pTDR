@@ -1,12 +1,23 @@
 Package: pTDR
-Title: What the Package Does (One Line, Title Case)
+Title: Parsimonious Tensor Dimension Reduction for Efficient Data Analysis
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    c(person(given = "Xin",
+           family = "Xing",
+           role = c("aut", "cre"),
+           email = "xinxing@vt.edu"),
+    person(given = "Peng",
+           family = "Zeng",
+           role = c("aut", "cre")),
+    person(given = "Youhui",
+           family = "Ye",
+           role = c("aut", "cre"),
+           email = "yye1997@vt.edu"),
+    person(given = "Wenxuan",
+           family = "Zhong",
+           role = c("aut", "cre")))
+Description: The pTDR package offers an advanced framework for reducing the dimensions of tensorial data in R, leveraging a parsimonious approach to retain essential information while significantly lowering computational complexity. Designed for both researchers and practitioners in statistical modeling, machine learning, and data science, pTDR integrates seamlessly with existing data analysis pipelines, providing robust methods for preprocessing high-dimensional data. Through its implementation of the Parsimonious Tensor Dimension Reduction (PTDR) algorithm, the package enables users to perform dimensionality reduction on complex datasets, facilitating more efficient and interpretable data analysis without compromising on data integrity.
+License: use_mit_license()
 Depends:
     R (>= 4.3.1)
 Imports:

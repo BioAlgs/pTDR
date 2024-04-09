@@ -2,7 +2,7 @@
 % Please edit documentation in R/pTDR.R
 \name{pTDR}
 \alias{pTDR}
-\title{Tensor-based Sliced Inverse Regression (SIR)}
+\title{Parsimonious Tensor Dimension Reduction (PTDR) Algorithm}
 \usage{
 pTDR(y, x, p, nslice, ndir = 1, maxiter = 200, tol = 1e-08, eps = 1e-08)
 }

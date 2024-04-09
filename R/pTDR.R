@@ -15,7 +15,7 @@
 ##    d --- c(dL, dR)
 ######################################################################
 
-#' Tensor-based Sliced Inverse Regression (SIR)
+#' Parsimonious Tensor Dimension Reduction (PTDR) Algorithm
 #'
 #' Implements a tensor-based approach to Sliced Inverse Regression (SIR) for 
 #' dimensionality reduction in supervised learning scenarios. This function 

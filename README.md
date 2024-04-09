@@ -17,7 +17,12 @@ Then, in start R or Rstudio, set the working directory as the downloaded folder 
 ```{r}
 devtools::load_all(".")
 ```
+## Help File
+
+You can access the help document of main functions such as `pTDR`, `testH0` by using `? pTDR` and `? testH0`.
+
 ## Usage
+
 Below are some examples demonstrating how to use the `pTDR` package. These examples cover basic usage, comparing new and old methodologies, testing hypotheses, and performing cross-validation.
 ```{r}
 # Define matrices
@@ -44,23 +49,7 @@ ans2 = pTDR(y, x, p, nslice, 4)
 dist.colspace(boa, ans1$boa)
 dist.colspace(boa, ans2$direction)
 ```
-## Comparing methodologies
-This example compares the outcomes of the old and new implementations of the foldedSIR function.
-```{r}
-# [Similar setup as the basic example]
 
-# Old vs. New foldedSIR
-ans0 = foldedSIR.old(y, x, p, nslice, c(1, 1))
-ans1 = foldedSIR(y, x, p, nslice, c(1, 1))
-
-# Compare column spaces
-dist.colspace(ans0$a, ans1$a)
-dist.colspace(ans0$b, ans1$b)
-
-boa0 = kronecker(ans0$b, ans0$a)
-boa1 = kronecker(ans1$b, ans1$a)
-dist.colspace(boa0, boa1)
-```
 
 ## Testing Hypotheses
 Demonstrates how to test hypotheses with the package.
@@ -73,14 +62,8 @@ print(ans$p.value)
 wchisq.tail(ans$stat, ans$z)
 ```
 
-## Cross-Validation
-Example showing how to perform cross-validation.
-```{r}
-# [Data generation steps]
 
-# Cross-validation
-ans = CV4B(y, x, boa[, c(1, 4)], 0.5)
-```
+
 ## Conclusion
 We hope this package assists in your research and analysis. For any issues or contributions, please open an issue or pull request on GitHub.
 
