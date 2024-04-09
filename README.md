@@ -20,6 +20,7 @@ devtools::load_all(".")
 ## Help File
 
 You can access the help document of main functions such as `pTDR`, `testH0` by using `? pTDR` and `? testH0`.
+
 The help file of `pTDR` is here:
 
 **Usage**
@@ -27,6 +28,7 @@ The help file of `pTDR` is here:
 pTDR(y, x, p, nslice, ndir = 1, maxiter = 200, tol = 1e-08, eps = 1e-08)
 ```
 **Arguments**
+
 `y`	Numeric vector of response variables, indicating the outcome for each observation.
 
 `x`	Numeric matrix of predictor variables, where each row is an observation and columns correspond to variables, possibly representing a flattened tensor.
@@ -44,6 +46,7 @@ pTDR(y, x, p, nslice, ndir = 1, maxiter = 200, tol = 1e-08, eps = 1e-08)
 `eps`	A small numerical value to stabilize computations (default is 1e-8).
 
 **Value**
+
 A list containing the following components:
 
 - `p`: The dimensions of the tensor as specified by the input.
