@@ -57,7 +57,7 @@ A list containing the following components:
 
 - `ans`: Results from the tensor-based SIR analysis, varying based on the dimensionality of p.
 
-## Usage
+## Examples
 
 Below are some examples demonstrating how to use the `pTDR` package. These examples cover basic usage, comparing new and old methodologies, testing hypotheses, and performing cross-validation.
 ```{r}
